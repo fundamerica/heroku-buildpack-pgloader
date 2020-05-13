@@ -23,14 +23,20 @@ echo "       Fetching $url"
 
 cd /tmp
 
-mkdir -p $dest
 curl -sL $url > /tmp/pgloader.zip
 unzip /tmp/pgloader.zip
 
 ls -la /tmp
-ls -la /tmp/pgloader
+
+extracted="/tmp/pgloader-$version"
+ls -la $extracted
+
+cd $extracted
 
 echo "-----> compiling with DYNSIZE=2048"
 make DYNSIZE=2048 pgloader
 
-ls -la /tmp/pgloader/build/bin
+ls -la $extracted/build/bin
+mkdir -p $dest/bin
+cp $extracted/build/bin/pgloader $dest/bin/pgloader
+echo $version > $dest/pgloader.version
