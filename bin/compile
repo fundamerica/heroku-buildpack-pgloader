@@ -35,13 +35,9 @@ cd $extracted
 
 echo "$BUILD_DIR/.apt/usr/lib/sbcl"
 ls -la "$BUILD_DIR/.apt/usr/lib/sbcl"
-echo "$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/sbcl"
-ls -la "$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/sbcl"
-echo "$BUILD_DIR/.apt/usr/lib/i386-linux-gnu/sbcl"
-ls -la "$BUILD_DIR/.apt/usr/lib/i386-linux-gnu/sbcl"
 
 echo "-----> compiling with DYNSIZE=2048"
-make SBCL_HOME="$BUILD_DIR/.apt/usr/lib/sbcl" DYNSIZE=2048 pgloader
+env SBCL_HOME="$BUILD_DIR/.apt/usr/lib/sbcl" make DYNSIZE=2048 pgloader
 
 ls -la $extracted/build/bin
 mkdir -p $dest/bin
