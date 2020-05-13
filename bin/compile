@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+set -e
+
+# Parse params
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+# Default version
+version="3.6.2"
+
+# Read version from configured JEMALLOC_VERSION
+# if [ -f $ENV_DIR/JEMALLOC_VERSION ]; then
+#   version=$(cat $ENV_DIR/JEMALLOC_VERSION)
+# fi
+
+url="https://github.com/dimitri/pgloader/archive/v$version.zip"
+dest="$BUILD_DIR/vendor/pgloader"
+
+echo "-----> Vendoring pgloader $version"
+echo "       Fetching $url"
+
+cd /tmp
+
+mkdir -p $dest
+curl -sL $url > /tmp/pgloader.zip
+unzip /tmp/pgloader.zip
+
+ls -la /tmp
+ls -la /tmp/pgloader
+
+echo "-----> compiling with DYNSIZE=2048"
+make DYNSIZE=2048 pgloader
+
+ls -la /tmp/pgloader/build/bin
