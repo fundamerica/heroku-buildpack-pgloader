@@ -44,7 +44,7 @@ sbcl_version='1.5.2'
 
 remote_file "/tmp/sbcl-${sbcl_version}.tgz" "http://prdownloads.sourceforge.net/sbcl/sbcl-${sbcl_version}-x86-64-linux-binary.tar.bz2" "$sbcl_checksum"
 tar --file  "/tmp/sbcl-${sbcl_version}.tgz" --extract --directory '/tmp'
-( cd "/tmp/sbcl-${sbcl_version}-x86-64-linux" && sudo ./install.sh )
+( cd "/tmp/sbcl-${sbcl_version}-x86-64-linux" && ./install.sh )
 
 cd $extracted
 
